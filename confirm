@@ -1,0 +1,11 @@
+#!/bin/sh
+stream=$(cat -)
+
+# Use as a confirmation breakpoint during a script
+# Intakes a stream and passes on same stream if confirmed
+# Else script stops
+
+case $stream in
+        "") echo "No pipe input to confirm" ;;
+        *) [ "$(printf "No\\nYes" | dmenu -i -p "$stream" )" = "Yes" ] && echo $stream ;;
+esac
