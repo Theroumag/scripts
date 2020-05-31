@@ -1,0 +1,6 @@
+#!/bin/sh
+case $1 in
+	patch) sed -i 's/geteuid/getppid/' /usr/bin/vlc    ;;
+	unpatch) sed -i 's/getppid/geteuid/' /usr/bin/vlc  ;;
+	*) echo -n "Usage: vlcrootpatch [patch/unpatch]\n" ;;
+esac

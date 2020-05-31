@@ -1,0 +1,6 @@
+#!/bin/bash
+
+while fzf fileName;
+do
+	nohup zathura $fileName -e $xid &>/dev/null
+done

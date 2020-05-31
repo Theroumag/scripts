@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# If tabbed instance is running, gets psid, else ""
+tabbed_psid=$(pstree -lp | grep tabbed | sed "s/.*tabbed(//;s/).*//")
+
+# Add support for non-zathura tabbed instances
+
+# Tabbed instantance n-> spawn & store : y-> get psid
+if [ -r $tabbed_psid ]
+then
+	tabbed -d > ~/.cache/tabbed_xid
+fi
+
+xid=$(cat ~/.cache/tabbed_xid)
+
+while read -e -p 'Open: ' fileName;
+do
+	nohup zathura $fileName -e $xid &>/dev/null
+done

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+case $(date +%M) in
+	00) notify-send 'Take note' 'What have you done?' ;;
+esac

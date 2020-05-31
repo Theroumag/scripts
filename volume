@@ -1,0 +1,17 @@
+#!/bin/sh
+
+toggle=$(amixer get Master | grep Mono: | sed "s/.*\\[//;s/\\]//")
+volume=$(amixer get Master | grep Mono: | sed "s/\ Mono:\ Playback\ [0-9]*\ \\[//;s/%.*//")
+
+case $1 in
+	"")case $toggle in
+		on) echo "VOL:$volume%" ;;
+		off) echo "MTD:$volume%" ;;
+	esac;;
+	+*) amixer -q set Master $(echo $1 | sed s/+// )%+ && refbar ;;
+	-*) amixer -q set Master $(echo $1 | sed s/-// )%- && refbar ;;
+	=*) amixer -q set Master $(echo $1 | sed s/=// )% && refbar ;;
+	on|off) amixer -q sset Master $1 && refbar ;;
+	toggle) amixer -q sset Master $1 && refbar ;;	
+	*) echo Invalid argument ;;
+esac

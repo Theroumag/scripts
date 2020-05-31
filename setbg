@@ -1,0 +1,9 @@
+#!/bin/sh
+
+bgloc="$HOME/.cache/bg"
+
+case $1 in
+	-f|--focus) xwallpaper --focus "$2" && mv "$2" "$bgloc" ;;
+	-z|--zoom) xwallpaper --zoom "$2" && mv "$2" "$bgloc" ;;
+	""|*)xwallpaper --focus "$bgloc" ;;
+esac

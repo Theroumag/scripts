@@ -1,0 +1,16 @@
+#!/bin/sh
+
+interface=$(ip link | grep wlo | sed "s/.*w/w/;s/:.*//")
+ssid=$(iw dev $interface info | grep ssid | sed s/.*\ //)
+public_ip=$(cat ~/.cache/ip)
+
+# Primary ip, find way to assign 2 vars on 2 \n's
+private_ip=$(ip addr show $interface primary| grep wlo1 | grep inet | sed "s/\/.*//;s/\s*inet\s//")
+
+case $ssid in
+	"") echo "No connection" & echo "" > ~/.cache/ip ;;
+	*) case $private_ip in
+		"") echo "No connection" & echo "" > ~/.cache/ip ;;
+		*) echo "$ssid ($public_ip)" ;;
+	   esac ;;
+esac

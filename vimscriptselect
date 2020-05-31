@@ -1,0 +1,8 @@
+#!/bin/sh
+
+file=$(ls ~/.scripts | dmenu -p "Script to edit") 
+
+case $file in
+	""|" ") echo No script selected ;;
+	*) st -e nvim ~/.scripts/$file ;;
+esac
