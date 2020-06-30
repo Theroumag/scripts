@@ -7,15 +7,6 @@ install () {
                         curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/$1.tar.gz && \
                         tar -xvf $1.tar.gz &&\
                         cd $1 &&\ makepkg --noconfirm -si &&\
-                     #!/bin/sh
-
-install () {
-        case $1 in
-                ""|-h|--help) echo "Usage: aur install <name>" && exit 1 ;;
-                *) [ $(find . | grep $1.tar.gz)  == "" ] && \
-                        curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/$1.tar.gz && \
-                        tar -xvf $1.tar.gz &&\
-                        cd $1 &&\ makepkg --noconfirm -si &&\
                         cd .. && rm -rf $1 $1.tar.gz ;;
         esac
 }
@@ -30,8 +21,7 @@ search () {
                    [ "$errors" != "null" ] && echo $errors && exit 1
 
                    width=$(stty size | cut -d ' ' -f 2)
-                   echo "$result" | jq -r '.results | .[] | .Name + "|" + .Version + "|" + .Desc
-ription' | column -t -s '|' | cut -c 1-${width} ;;
+                   echo "$result" | jq -r '.results | .[] | .Name + "|" + .Version + "|" + .Description' | column -t -s '|' | cut -c 1-${width} ;;
         esac
 }
 
@@ -41,30 +31,3 @@ case $1 in
         *) echo "Usage: aur search/install <package>" && exit 1 ;;
 
 esac
-~
-   cd .. && rm -rf $1 $1.tar.gz ;;
-        esac
-}
-
-search () {
-
-        case $1 in
-                ""|-h|--help) echo "Usage: aur search <name>" && exit 1 ;;
-                *) result=$(curl -s "https://aur.archlinux.org/rpc/?v=5&type=search&arg=$1")
-                   errors=$(echo "$result" | jq -r '.error')
-
-                   [ "$errors" != "null" ] && echo $errors && exit 1
-
-                   width=$(stty size | cut -d ' ' -f 2)
-                   echo "$result" | jq -r '.results | .[] | .Name + "|" + .Version + "|" + .Desc
-ription' | column -t -s '|' | cut -c 1-${width} ;;
-        esac
-}
-
-case $1 in
-        --search|-s|s) search $2 ;;
-        --install|-i|i) install $2 ;;
-        *) echo "Usage: aur search/install <package>" && exit 1 ;;
-
-esac
-~
