@@ -1,0 +1,7 @@
+#!/bin/sh
+
+while :; do
+	xsetroot -name " $(wifi) | $(avolume) | $(battery) | $(date +%a\ %b\ %d\ %H:%M%P)"
+	remind
+	sleep 1m
+done

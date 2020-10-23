@@ -1,5 +1,15 @@
 #!/bin/sh
 
+logfile="/root/.cache/hourremind"
+flag=$(cat $logfile)
+icon="/usr/share/icons/Adwaita/scalable/status/weather-tornado-symbol.svg"
+hour=$(date +%H:%M)
 case $(date +%M) in
-	00) notify-send 'Take note' 'What have you done?' ;;
+	0|5|10|15|20|25|30|35|40|45|50|55)
+	case $flag in
+		0) notify-send --icon=$icon "$hour" && echo 1 > $logfile ;;
+	esac ;;
+	
+	59|4|9|14|19|24|29|34|39|44|49|54)
+		echo 0 > $logfile ;;
 esac

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+url="https://wiki.archlinux.org/index.php?title=Special:Search&search="
+
+search=$(echo -n ""| dmenu -p "Arch Wiki:")
+
+case $search in
+	"") ;;
+	*)  firefox-developer-edition --new-tab "$url$search" ;;
+esac

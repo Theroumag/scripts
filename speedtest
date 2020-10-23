@@ -1,0 +1,4 @@
+#!/bin/sh
+t=$(date +"%s")
+wget http://speedtest.tele2.net/10MB.zip -O ->/dev/null
+echo -n Mbps: $(expr 8 \* 100 / $(($(date +"%s")-$t)))

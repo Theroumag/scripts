@@ -1,0 +1,12 @@
+#!/bin/sh
+
+res=$(locate -b "\\$1") # result
+
+case $res in
+	"") echo "Invalid directory / no directory passed" ;;
+
+	*)	len=$( echo $res | wc -w )
+		[ $len -gt 1 ] && dir=$(echo $res | sed "s/ /\n/g" | fzf) || dir=$res
+		cd $dir
+	;;
+esac

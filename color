@@ -1,0 +1,22 @@
+#!/bin/sh
+
+current=$(cat ~/.cache/colorshift)
+colorshift () { 
+	hue=$(( $current $1 ))
+	# If value to set in min/max bounds, shift
+	if [ $hue -ge 1000 -a $hue -le 25000 ]; then
+		echo $hue
+		redshift -P -O $hue && echo $hue > ~/.cache/colorshift
+	fi
+}
+
+case $1 in
+	"") echo "No argument passed" ;;
+	+)  colorshift +1000 ;;
+	-)  colorshift -1000 ;;
+	+*) colorshift $1 ;;
+	-*) colorshift $1 ;;
+	=)  echo "No value to set passed (1000-25000)" ;;
+	=*) echo $1 | sed s/=// | xargs redshift -P -O ;;
+	*)  echo "Invalid parameter passed"
+esac

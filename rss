@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Fetch and parse newsboat updates 
+
+infoFile="/root/.cache/rss"
+unread=$(newsboat -x "reload" -x "print-unread" | sed "s/\s.*//")
+
+
+[ "$unread" -ne 0 ] && [ "$unread" != "" ] && echo $unread

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Process command then update bar without pause
+# Eg. du -hs / 2>/dev/null &

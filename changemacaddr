@@ -1,0 +1,11 @@
+#!/bin/sh
+
+interface="$1"
+
+killall wpa_supplicant dhcpcd
+ip link set $interface down
+macchanger -r $interface
+ip link set $interface up
+wpa_supplicant -B -i $interface -c /etc/wpa_supplicant/wpa_supplicant.conf
+dhcpcd
+ipfetch

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+basepath="$HOME/Media/Visual/YouTube/"
+mkdir -p "$basepath/.archives"
+cd "$basepath"
+
+dl () {
+    youtube-dl --download-archive .archives/"$1".txt -f         \
+        bestvideo+bestaudio --write-sub --write-auto-sub        \
+	--sub-format srt/best --sub-lang en    \
+        --embed-subs -o "%(uploader)s/%(title)s.%(ext)s" "$2"
+    sleep 5
+}
+
+dl $1 $2
+
+notify-send --icon /usr/share/icons/Adwaita/scalable/places/folder-download-symbolic.svg "Downloads finished" "Check the YouTube folder for new videos"

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Uses hacksaw to take a screenshot and copies to clipboard
+shotgun  $(hacksaw -f "-i %i -g %g") - | xclip -t 'image/png' -selection clipboard

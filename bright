@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# Script that manages brighness
+# Todo, use sigmoid gradient
+
+dir="/sys/class/backlight/intel_backlight"
+
+bright () {
+	echo $(($(cat "$dir/brightness") $1 )) > "$dir/brightness"
+
+}
+
+case $1 in
+	"") echo "No argument passed" ;;
+	+) bright +375 ;;
+	-) bright -375 ;;
+	+*) bright $1 ;;
+	-*) bright $1 ;;
+	=) echo No value to set passed\(0-7500\)    ;;
+	=*) echo $1 | sed s/=// > "$dir/brightness" ;;
+esac

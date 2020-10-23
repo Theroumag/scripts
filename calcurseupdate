@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# Parse and send notification for calcurse calender events
+
+event= $( calcurse -n | tail -1 | cut -d ' ' -f 5- )
+notify-send "Calcurse Event" "$event"

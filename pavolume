@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# 4096 is 6.25 % of 65536 (100% volume) | 16 steps | ~ 655 per 1%
+
+sink=$(pacmd list-sinks| grep name: | sed "s/.*<//;s/>//")
+volume=$(pacmd list-sinks | awk '/volume: front-left:/ { gsub("%", ""); print $5 }')
+
+case $1 in
+	'') [ $(pacmd list-sinks | grep muted | sed "s/.*\s//") = yes ] && \
+		echo MTD: $volume% || echo VOL: $volume% ;;
+	+) pacmd set-sink-volume 0 $(( ($volume * 655) + 4096 )) ;; 
+	-) pacmd set-sink-volume 0 $(( ($volume * 655) - 4096 )) ;;
+	t|toggle)  pactl set-sink-mute 0 toggle && update_muted_status ;; 
+esac

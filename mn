@@ -1,0 +1,14 @@
+#!/bin/sh
+
+interface=$(iw dev | awk '$1=="Interface"{print $2}')
+
+case $1 in
+	"") echo """\
+	o: killall wpa_supplicant dhcpcd
+	w: wpa_supplicant -B -i $interface -c /etc/wpa_supplicant/wpa_supplicant.conf
+	d: dhcpcd && ipfetch \
+		""";;
+	o) killall wpa_supplicant dhcpcd ;;
+	w) wpa_supplicant -B -i $interface -c /etc/wpa_supplicant/wpa_supplicant.conf ;;
+	d) dhcpcd && ipfetch ;;
+esac

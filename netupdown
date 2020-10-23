@@ -10,7 +10,7 @@ prevdata=$(cat $logfile) || echo "0 0" > "$logfile"
 rxcurrent="$(( $(paste -d '+' /sys/class/net/wlo1/statistics/rx_bytes) ))"
 txcurrent="$(( $(paste -d '+' /sys/class/net/wlo1/statistics/tx_bytes) ))"
 echo "$rxcurrent $txcurrent" > "$logfile"
-printf "∧ %sKiB ∨ %sKiB\\n" \
+printf "∨ %sKiB  ∧ %sKiB\\n" \
 	"$(( (rxcurrent - ${prevdata%% *}) /1024 ))" \
 	"$(( (txcurrent - ${prevdata##* }) /1024 ))"
 

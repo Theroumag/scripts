@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Exclude all elements in argv from previous command
+
+input=$(cat -)
+echo [input]
+echo $input
+
+for var in "$@"
+do
+	echo [output]
+	echo $var
+	tmp=$(echo $input | grep -v $var)
+	echo $tmp
+done

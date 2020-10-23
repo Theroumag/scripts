@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Fuzzy dictionary word search, with fzf?
+# Use cache to speed up
