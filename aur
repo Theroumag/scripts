@@ -3,7 +3,7 @@
 install () {
 	case $1 in
 		""|-h|--help) echo "Usage: aur install <name>" && exit 1 ;;
-		*) [ $(find . | grep $1.tar.gz)  = "" ] && \
+		*) [ "$(find . | grep $1.tar.gz)"  = "" ] && \
 			curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/$1.tar.gz && \
 			tar -xvf $1.tar.gz &&\ 
 			cd $1 &&\ makepkg --noconfirm -si &&\
